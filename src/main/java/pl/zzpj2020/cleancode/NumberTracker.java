@@ -5,77 +5,67 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class doit {
+public class NumberTracker {
 
-    Map<Integer, Integer> __1 = new HashMap<Integer, Integer>();
-    private int _2 = Integer.MIN_VALUE;
-    private int kpp = Integer.MAX_VALUE;
+    Map<Integer, Integer> numberCounter = new HashMap<Integer, Integer>();
+    private int maxValueFound = Integer.MIN_VALUE;
+    private int minValueFound = Integer.MAX_VALUE;
 
-    public doit(List<Integer> i1) {
-        p(i1);
+    public NumberTracker(List<Integer> numbersToTrack) {
+        trackNumbers(numbersToTrack);
     }
 
-    public doit() {
+    public NumberTracker() {
     }
 
-    public void p(List<Integer> l1) {
-        int i = 0;
-        for (; i < l1.size(); i++) {
-            p(l1.get(i));
+    public void trackNumbers(List<Integer> integersToCount) {
+        for (Integer integerToCount : integersToCount) {
+            trackSingleNumber(integerToCount);
+            checkIfNumberIsNewMax(integerToCount);
+            checkIfNumberIsNewMin(integerToCount);
         }
     }
 
-    public void p(Integer i) {
-        if (__1.containsKey(i)) {
-            Integer k = __1.get(i);
-            __1.put(i, k + 1);
+    public void checkIfNumberIsNewMax(int potentialMax){
+        if (potentialMax > maxValueFound) {
+            maxValueFound = potentialMax;
+        }
+    }
+
+    public void checkIfNumberIsNewMin(int potentialMin){
+        if (potentialMin < minValueFound) {
+            minValueFound = potentialMin;
+        }
+    }
+
+    public void trackSingleNumber(Integer numberToTrack) {
+        if (numberCounter.containsKey(numberToTrack)) {
+            Integer k = numberCounter.get(numberToTrack);
+            numberCounter.put(numberToTrack, k + 1);
         } else {
-            __1.put(1, 1);
-        }
-
-        if (i > _2) {
-            _2 = i;
-        }
-
-        if (i < kpp) {
-            kpp = i;
+            numberCounter.put(numberToTrack, 1);
         }
     }
 
-    public int DOIT(int i) {
-        if (__1.containsKey(i)) {
-            return __1.get(i);
-        } else {
-            return 0;
+    public int getCountOfGivenNumber(int i) {
+		return numberCounter.getOrDefault(i, 0);
+    }
+
+    public double getAverageOfAllNumbers() {
+        double numberSum = 0;
+        double numberCount = 0;
+        for (Entry<Integer, Integer> numberEntry : numberCounter.entrySet()) {
+            numberCount += numberEntry.getValue();
+            numberSum += numberEntry.getKey() * numberEntry.getValue();
         }
+        return numberSum / numberCount;
     }
 
-    public double dasIstGut() {
-        double jk = 0;
-        double p = 0;
-        for (Entry<Integer, Integer> u : __1.entrySet()) {
-            p += u.getValue();
-            jk += u.getKey() * u.getValue();
-        }
-        return jk / p;
+    public int getMaxValueFound() {
+    	return maxValueFound;
     }
 
-    public int l1() {
-        return _2;
-    }
-
-    public int l2() {
-        return kpp;
-    }
-
-
-    //TODO: future use when i will know what  my name and number are
-    public String getFizzBuzzNumber(int number) {
-        //TODO: implement
-        //Das Belvedere ist ein Barock-Palast.
-        //Heute ist es ein Museum.
-        //Die Menschen fotografieren oft das Belvedere.
-        //Das Museum ist interessant, aber es gibt auch einen schönen Garten.
-        return null;
+    public int getMinValueFound() {
+        return minValueFound;
     }
 }
