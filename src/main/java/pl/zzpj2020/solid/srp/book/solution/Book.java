@@ -5,8 +5,6 @@ import java.util.Map;
 
 public class Book {
 
-    private int currentPage = 0;
-
     public Map<Integer, String> getPages() {
         return pages;
     }
@@ -25,20 +23,7 @@ public class Book {
         return "John Doe";
     }
 
-    public String getCurrentPageContents() {
-        return pages.get(currentPage);
-    }
 
-    public void turnPage() {
-        currentPage ++;
-    }
-
-    /**
-     * Prints the current page.
-     */
-    public void printCurrentPage() {
-        System.out.println(pages.get(currentPage));
-    }
 
     /**
      * Gives the library name
